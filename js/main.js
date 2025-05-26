@@ -1,4 +1,4 @@
-class Disponible {
+class Biblioteca {
     constructor(nombre, libros = []){
         this.nombre = nombre;
         this.libros = libros;
@@ -14,7 +14,31 @@ class Disponible {
     }
 
     prestarLibro(isbn){
-        
+        let libro = this.libros.find((item, index, array) => {
+            return item.isbn == isbn;
+        })
+        if (libro._prestado === "disponible"){
+            libro.se
+        } else {
+            console.log("El libro ya esta prestado");
+        }
+    }
+
+    devolverLibro(isbn){
+        let libro = this.libros.find((item, index, array) => {
+            return item.isbn == isbn;
+        })
+        if (libro._prestado === "prestado"){
+            libro._prestado = "disponible";
+        } else {
+            console.log("El libro ya esta disponible");
+        }
+    }
+
+    mostrarLibros(){
+        this.libros.forEach((item, index, array) => {
+            console.log(`Libro: ${item.titulo}, Estado: ${item.estado}`);
+        })
     }
 }
 
@@ -26,7 +50,7 @@ class Libro {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
-        let _prestado = prestado;
+        this._prestado = prestado;
     }   
 
     prestar() {
@@ -37,7 +61,26 @@ class Libro {
         _prestado = "disponible";
     }
 
-    getEstado() {
+/*     getEstado() {
         console.log(_prestado);
+    } */
+
+    get estado(){
+        console.log(this._prestado);
+        return this._prestado;
     }
+
+    /*set estado(){
+        if (this.estado === "disponible"){
+            
+        }
+    }*/
 }
+
+
+const biblio = new Biblioteca("Biblioteca Central");
+const libro1 = new Libro("1984", "George Orwell", "12345");
+
+biblio.agregarLibro(libro1);
+biblio.prestarLibro("12345");
+biblio.mostrarLibros();
